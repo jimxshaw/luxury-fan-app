@@ -17,9 +17,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TableLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.jimmyshaw.lexusfanapp.R;
+import me.jimmyshaw.lexusfanapp.adapters.ModelsAdapter;
 import me.jimmyshaw.lexusfanapp.fragments.ModelsFragment;
 
 public class ModelsActivity extends AppCompatActivity
@@ -50,6 +52,10 @@ public class ModelsActivity extends AppCompatActivity
 
         prepareDataResource();
 
+        ModelsAdapter adapter = new ModelsAdapter(getSupportFragmentManager(), mFragmentList, mTabTitleList);
+        mViewPager.setAdapter(adapter);
+        mTabLayout.setupWithViewPager(mViewPager);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -69,6 +75,8 @@ public class ModelsActivity extends AppCompatActivity
 
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        mFragmentList = new ArrayList<>();
+        mTabTitleList = new ArrayList<>();
     }
 
     private void prepareDataResource() {
