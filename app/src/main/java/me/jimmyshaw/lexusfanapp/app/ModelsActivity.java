@@ -3,6 +3,9 @@ package me.jimmyshaw.lexusfanapp.app;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,18 +15,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TableLayout;
+
+import java.util.List;
 
 import me.jimmyshaw.lexusfanapp.R;
+import me.jimmyshaw.lexusfanapp.fragments.ModelsFragment;
 
 public class ModelsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private Toolbar mToolbar;
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
+
+    private List<Fragment> mFragmentList;
+    private List<String> mTabTitleList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_models);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -34,15 +46,43 @@ public class ModelsActivity extends AppCompatActivity
 //            }
 //        });
 
+        initialize();
+
+        prepareDataResource();
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
     }
+
+    private void initialize() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        mToolbar.setTitle("2016 Lexus - Models");
+
+        mTabLayout = (TabLayout) findViewById(R.id.tabs);
+        mViewPager = (ViewPager) findViewById(R.id.view_pager);
+    }
+
+    private void prepareDataResource() {
+        addData(new ModelsFragment(), "ALL");
+        addData(new ModelsFragment(), "SEDAN");
+        addData(new ModelsFragment(), "COUPE");
+        addData(new ModelsFragment(), "SUV");
+    }
+
+    private void addData(Fragment fragment, String tabTitle) {
+        mFragmentList.add(fragment);
+        mTabTitleList.add(tabTitle);
+    }
+
 
     @Override
     public void onBackPressed() {
