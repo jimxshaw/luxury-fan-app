@@ -54,11 +54,6 @@ public class ModelsFragment extends Fragment {
         // this fragment and assign it to a variable.
         mCategory = getArguments().getString(ARG_CATEGORY);
 
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         EdmundsService service = EdmundsServiceGenerator.createService(EdmundsService.class);
 
         Map<String, String> options = new HashMap<>();
@@ -92,6 +87,10 @@ public class ModelsFragment extends Fragment {
                 Log.e("Error retrieving data", t.getMessage());
             }
         });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         mModelRecyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_models, container, false);
         updateUI();
