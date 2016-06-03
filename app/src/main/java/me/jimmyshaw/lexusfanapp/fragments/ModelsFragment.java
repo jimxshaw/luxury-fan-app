@@ -91,13 +91,18 @@ public class ModelsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        mModelAdapter = new ModelAdapter();
+
         mModelRecyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_models, container, false);
-        mModelRecyclerView.setAdapter(mModelAdapter);
+        updateUI();
         mModelRecyclerView.setHasFixedSize(true);
         mModelRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return mModelRecyclerView;
+    }
+
+    private void updateUI() {
+        mModelAdapter = new ModelAdapter(mModels);
+        mModelRecyclerView.setAdapter(mModelAdapter);
     }
 
     public class ModelHolder extends RecyclerView.ViewHolder {
@@ -111,6 +116,12 @@ public class ModelsFragment extends Fragment {
     public class ModelAdapter extends RecyclerView.Adapter<ModelHolder> {
         // Set number of Cards in the recycler view.
         private final int LENGTH = 18;
+
+        private List<Model> models;
+
+        public ModelAdapter(List<Model> models) {
+            this.models = models;
+        }
 
 
         @Override
