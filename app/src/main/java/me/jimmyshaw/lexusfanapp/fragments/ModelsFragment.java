@@ -8,42 +8,67 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import me.jimmyshaw.lexusfanapp.R;
+import me.jimmyshaw.lexusfanapp.edmunds.Model;
 
 public class ModelsFragment extends Fragment {
+
+    private final String API_KEY = "k5whpdvu4rf2h2gj3wuzaysg";
+
+    private static final String ARG_CATEGORY = "model_category";
+    private String mCategory;
+
+    private RecyclerView mModeRecyclerView;
+    private ModelAdapter mModelAdapter;
+
+    private List<Model> mModels;
+
+    // New instances of ModelsFragment can only be created through this static newInstance
+    // method, which takes a model category argument such as null, sedan, coupe etc. This way, our
+    // list of models can be filtered by that particular category.
+    public static Fragment newInstance(String category) {
+        Bundle args = new Bundle();
+        args.putString(ARG_CATEGORY, category);
+        ModelsFragment modelsFragment = new ModelsFragment();
+        modelsFragment.setArguments(args);
+
+        return modelsFragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        ContentAdapter adapter = new ContentAdapter();
-        RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_models, container, false);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mModelAdapter = new ModelAdapter();
+        mModeRecyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_models, container, false);
+        mModeRecyclerView.setAdapter(mModelAdapter);
+        mModeRecyclerView.setHasFixedSize(true);
+        mModeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        return recyclerView;
+        return mModeRecyclerView;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ModelHolder extends RecyclerView.ViewHolder {
 
-        public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
+        public ModelHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.fragment_models_card_view_item, parent, false));
 
         }
     }
 
-    public static class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
+    public class ModelAdapter extends RecyclerView.Adapter<ModelHolder> {
         // Set number of Cards in the recycler view.
         private static final int LENGTH = 18;
 
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(LayoutInflater.from(parent.getContext()), parent);
+        public ModelHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new ModelHolder(LayoutInflater.from(parent.getContext()), parent);
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(ModelHolder holder, int position) {
 
         }
 
