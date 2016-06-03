@@ -83,8 +83,8 @@ public class ModelsActivity extends AppCompatActivity
         addData(ModelsFragment.newInstance(null), "ALL");
         addData(ModelsFragment.newInstance("Sedan"), "SEDAN");
         addData(ModelsFragment.newInstance("Coupe"), "COUPE");
-        addData(ModelsFragment.newInstance("4dr+SUV"), "SUV");
-        addData(ModelsFragment.newInstance("4dr+Hatchback"), "OTHER");
+        addData(ModelsFragment.newInstance("4dr SUV"), "SUV");
+        addData(ModelsFragment.newInstance("4dr Hatchback"), "OTHER");
     }
 
     private void addData(Fragment fragment, String tabTitle) {

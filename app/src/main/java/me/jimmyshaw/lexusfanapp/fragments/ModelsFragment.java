@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +54,11 @@ public class ModelsFragment extends Fragment {
         // this fragment and assign it to a variable.
         mCategory = getArguments().getString(ARG_CATEGORY);
 
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         EdmundsService service = EdmundsServiceGenerator.createService(EdmundsService.class);
 
         Map<String, String> options = new HashMap<>();
@@ -61,7 +67,7 @@ public class ModelsFragment extends Fragment {
         options.put("view", "basic");
         options.put("api_key", API_KEY);
         // A null category means there's no filter and the user will see all car models. So we
-        // don't have to put the category in the HashMap. 
+        // don't have to put the category in the HashMap.
         if (mCategory != null) {
             options.put("category", mCategory);
         }
@@ -86,11 +92,6 @@ public class ModelsFragment extends Fragment {
                 Log.e("Error retrieving data", t.getMessage());
             }
         });
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
 
         mModelRecyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_models, container, false);
         updateUI();
