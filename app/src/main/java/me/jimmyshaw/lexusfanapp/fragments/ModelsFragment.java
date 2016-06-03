@@ -4,14 +4,23 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import me.jimmyshaw.lexusfanapp.R;
 import me.jimmyshaw.lexusfanapp.edmunds.Model;
+import me.jimmyshaw.lexusfanapp.edmunds.Models;
+import me.jimmyshaw.lexusfanapp.edmunds.util.EdmundsService;
+import me.jimmyshaw.lexusfanapp.edmunds.util.EdmundsServiceGenerator;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ModelsFragment extends Fragment {
 
@@ -35,6 +44,41 @@ public class ModelsFragment extends Fragment {
         modelsFragment.setArguments(args);
 
         return modelsFragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Retrieve the category argument that's been set through the newInstance creation of
+        // this fragment and assign it to a variable.
+        mCategory = getArguments().getString(ARG_CATEGORY);
+
+        EdmundsService service = EdmundsServiceGenerator.createService(EdmundsService.class);
+
+        Map<String, String> options = new HashMap<>();
+        options.put("state", "new");
+        options.put("year", "2016");
+        options.put("view", "basic");
+        options.put("category", mCategory);
+        options.put("api_key", API_KEY);
+
+        Call<Models> call = service.getModels(options);
+        call.enqueue(new Callback<Models>() {
+            @Override
+            public void onResponse(Call<Models> call, Response<Models> response) {
+                if (response.isSuccessful()) {
+                    List<Model> result = response.body().getModels();
+                }
+                else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Models> call, Throwable t) {
+                Log.e("Error retrieving data", t.getMessage());
+            }
+        });
     }
 
     @Override
