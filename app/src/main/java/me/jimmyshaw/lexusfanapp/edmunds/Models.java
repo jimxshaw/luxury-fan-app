@@ -1,5 +1,5 @@
 
-package me.jimmyshaw.lexusfanapp.pojos;
+package me.jimmyshaw.lexusfanapp.edmunds;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -1,41 +1,38 @@
 
-package me.jimmyshaw.lexusfanapp.pojos;
+package me.jimmyshaw.lexusfanapp.edmunds;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Generated;
 
 @Generated("org.jsonschema2pojo")
-public class Model {
+public class Style {
 
     @SerializedName("id")
     @Expose
-    private String id;
+    private Integer id;
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("niceName")
+    @SerializedName("submodel")
     @Expose
-    private String niceName;
-    @SerializedName("years")
+    private Submodel submodel;
+    @SerializedName("trim")
     @Expose
-    private List<Year> years = new ArrayList<Year>();
+    private String trim;
 
     /**
      * @return The id
      */
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * @param id The id
      */
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -54,31 +51,31 @@ public class Model {
     }
 
     /**
-     * @return The niceName
+     * @return The submodel
      */
-    public String getNiceName() {
-        return niceName;
+    public Submodel getSubmodel() {
+        return submodel;
     }
 
     /**
-     * @param niceName The niceName
+     * @param submodel The submodel
      */
-    public void setNiceName(String niceName) {
-        this.niceName = niceName;
+    public void setSubmodel(Submodel submodel) {
+        this.submodel = submodel;
     }
 
     /**
-     * @return The years
+     * @return The trim
      */
-    public List<Year> getYears() {
-        return years;
+    public String getTrim() {
+        return trim;
     }
 
     /**
-     * @param years The years
+     * @param trim The trim
      */
-    public void setYears(List<Year> years) {
-        this.years = years;
+    public void setTrim(String trim) {
+        this.trim = trim;
     }
 
 }
