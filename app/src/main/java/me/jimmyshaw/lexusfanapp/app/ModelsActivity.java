@@ -80,11 +80,11 @@ public class ModelsActivity extends AppCompatActivity
     }
 
     private void prepareDataResource() {
-        addData(new ModelsFragment(), "ALL");
-        addData(new ModelsFragment(), "SEDAN");
-        addData(new ModelsFragment(), "COUPE");
-        addData(new ModelsFragment(), "SUV");
-        addData(new ModelsFragment(), "OTHER");
+        addData(ModelsFragment.newInstance(null), "ALL");
+        addData(ModelsFragment.newInstance("Sedan"), "SEDAN");
+        addData(ModelsFragment.newInstance("Coupe"), "COUPE");
+        addData(ModelsFragment.newInstance("4dr+SUV"), "SUV");
+        addData(ModelsFragment.newInstance("4dr+Hatchback"), "OTHER");
     }
 
     private void addData(Fragment fragment, String tabTitle) {

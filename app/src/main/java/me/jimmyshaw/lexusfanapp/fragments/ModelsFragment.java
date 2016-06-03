@@ -59,18 +59,24 @@ public class ModelsFragment extends Fragment {
         options.put("state", "new");
         options.put("year", "2016");
         options.put("view", "basic");
-        options.put("category", mCategory);
         options.put("api_key", API_KEY);
+        // A null category means there's no filter and the user will see all car models. So we
+        // don't have to put the category in the HashMap. 
+        if (mCategory != null) {
+            options.put("category", mCategory);
+        }
 
         Call<Models> call = service.getModels(options);
         call.enqueue(new Callback<Models>() {
             @Override
             public void onResponse(Call<Models> call, Response<Models> response) {
                 if (response.isSuccessful()) {
-                    List<Model> result = response.body().getModels();
+                    mModels = response.body().getModels();
+                    Log.i("GET Status", "Successfully retrieved data");
+
                 }
                 else {
-
+                    Log.i("GET Status", "Failed to retrieve data");
                 }
             }
 
