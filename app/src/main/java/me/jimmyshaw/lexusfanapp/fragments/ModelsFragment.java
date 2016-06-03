@@ -29,7 +29,7 @@ public class ModelsFragment extends Fragment {
     private static final String ARG_CATEGORY = "model_category";
     private String mCategory;
 
-    private RecyclerView mModeRecyclerView;
+    private RecyclerView mModelRecyclerView;
     private ModelAdapter mModelAdapter;
 
     private List<Model> mModels;
@@ -73,6 +73,7 @@ public class ModelsFragment extends Fragment {
                 if (response.isSuccessful()) {
                     mModels = response.body().getModels();
                     Log.i("GET Status", "Successfully retrieved data");
+                    Log.i("GET Status", response.body().getModelsCount().toString());
 
                 }
                 else {
@@ -91,12 +92,12 @@ public class ModelsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         mModelAdapter = new ModelAdapter();
-        mModeRecyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_models, container, false);
-        mModeRecyclerView.setAdapter(mModelAdapter);
-        mModeRecyclerView.setHasFixedSize(true);
-        mModeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mModelRecyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_models, container, false);
+        mModelRecyclerView.setAdapter(mModelAdapter);
+        mModelRecyclerView.setHasFixedSize(true);
+        mModelRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        return mModeRecyclerView;
+        return mModelRecyclerView;
     }
 
     public class ModelHolder extends RecyclerView.ViewHolder {
@@ -109,7 +110,7 @@ public class ModelsFragment extends Fragment {
 
     public class ModelAdapter extends RecyclerView.Adapter<ModelHolder> {
         // Set number of Cards in the recycler view.
-        private static final int LENGTH = 18;
+        private final int LENGTH = 18;
 
 
         @Override
