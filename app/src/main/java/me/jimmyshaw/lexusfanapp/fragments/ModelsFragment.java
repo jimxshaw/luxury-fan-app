@@ -1,5 +1,6 @@
 package me.jimmyshaw.lexusfanapp.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,8 +54,16 @@ public class ModelsFragment extends Fragment {
         // this fragment and assign it to a variable.
         mCategory = getArguments().getString(ARG_CATEGORY);
 
+        // Add a progress dialog spinner that will display during interactions with the server.
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity(), R.style.ProgressDialogTheme);
+        progressDialog.setCancelable(false);
+        progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
+        progressDialog.show();
+
+        // Use our service generator to create the backend API interface.
         EdmundsService service = EdmundsServiceGenerator.createService(EdmundsService.class);
 
+        // Create the hash map of GET request query parameters.
         Map<String, String> options = new HashMap<>();
         options.put("state", "new");
         options.put("year", "2016");
@@ -66,12 +75,14 @@ public class ModelsFragment extends Fragment {
             options.put("category", mCategory);
         }
 
+        // Use the hash map to actually query the backend API server with a GET request.
         Call<Models> call = service.getModels(options);
         call.enqueue(new Callback<Models>() {
             @Override
             public void onResponse(Call<Models> call, Response<Models> response) {
                 if (response.isSuccessful()) {
                     mModels = response.body().getModels();
+                    progressDialog.dismiss();
                     updateUI();
                     Log.i("GET Status", "Successfully retrieved data");
                     Log.i("GET Status", response.body().getModelsCount().toString());
