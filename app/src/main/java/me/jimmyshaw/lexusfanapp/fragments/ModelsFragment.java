@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,6 +72,7 @@ public class ModelsFragment extends Fragment {
             public void onResponse(Call<Models> call, Response<Models> response) {
                 if (response.isSuccessful()) {
                     mModels = response.body().getModels();
+                    updateUI();
                     Log.i("GET Status", "Successfully retrieved data");
                     Log.i("GET Status", response.body().getModelsCount().toString());
 
@@ -103,6 +103,7 @@ public class ModelsFragment extends Fragment {
     private void updateUI() {
         mModelAdapter = new ModelAdapter(mModels);
         mModelRecyclerView.setAdapter(mModelAdapter);
+
     }
 
     public class ModelHolder extends RecyclerView.ViewHolder {
@@ -115,8 +116,6 @@ public class ModelsFragment extends Fragment {
 
     public class ModelAdapter extends RecyclerView.Adapter<ModelHolder> {
         // Set number of Cards in the recycler view.
-        private final int LENGTH = 18;
-
         private List<Model> models;
 
         public ModelAdapter(List<Model> models) {
@@ -136,8 +135,10 @@ public class ModelsFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return LENGTH;
+            // Check for the numbers of models in our list. If it's null, meaning our async GET
+            // request from the server hasn't completed yet, return 0. When the GET requests completes
+            // our list of models will be filled, our UI will update and the cars will appear.
+            return models == null ? 0 : models.size();
         }
     }
-
 }
