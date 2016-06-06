@@ -87,7 +87,6 @@ public class ModelsFragment extends Fragment {
                     updateUI();
                     Log.i("GET Status", "Successfully retrieved data");
                     Log.i("GET Status", response.body().getModelsCount().toString());
-
                 }
                 else {
                     Log.i("GET Status", "Failed to retrieve data");
@@ -103,11 +102,11 @@ public class ModelsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         mModelRecyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_models, container, false);
-        updateUI();
         mModelRecyclerView.setHasFixedSize(true);
         mModelRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        updateUI();
 
         return mModelRecyclerView;
     }
@@ -115,7 +114,6 @@ public class ModelsFragment extends Fragment {
     private void updateUI() {
         mModelAdapter = new ModelAdapter(mModels);
         mModelRecyclerView.setAdapter(mModelAdapter);
-
     }
 
     public class ModelHolder extends RecyclerView.ViewHolder {
@@ -126,16 +124,22 @@ public class ModelsFragment extends Fragment {
 
         public ModelHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.fragment_models_card_view_item, parent, false));
+            View view = inflater.inflate(R.layout.fragment_models_card_view_item, parent, false);
 
-            mName = (TextView) parent.findViewById(R.id.card_view_name);
-            mTotalCostOfOwnership = (TextView) parent.findViewById(R.id.card_view_tco);
-
+            mName = (TextView) view.findViewById(R.id.card_view_name);
+            mTotalCostOfOwnership = (TextView) view.findViewById(R.id.card_view_tco);
         }
 
         public void bindModel(Model model) {
             this.model = model;
 
-            Log.i("Bound model", String.valueOf(model.getName()));
+            // This if statement added to prevent null object reference errors.
+            if (this.model != null) {
+                mName.setText(this.model.getName());
+            }
+
+            // Log statement for testing purposes.
+            Log.i("Bound model", String.valueOf(this.model.getName()));
         }
 
     }
@@ -148,7 +152,6 @@ public class ModelsFragment extends Fragment {
             this.models = models;
         }
 
-
         @Override
         public ModelHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             return new ModelHolder(LayoutInflater.from(parent.getContext()), parent);
@@ -156,6 +159,7 @@ public class ModelsFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ModelHolder holder, int position) {
+            // For our list of models, get one model by position and bind it to our view holder class.
             Model model = models.get(position);
             holder.bindModel(model);
         }
