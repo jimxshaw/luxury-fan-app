@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,7 +86,16 @@ public class ModelsFragment extends Fragment {
                 if (response.isSuccessful()) {
                     mModels = response.body().getModels();
                     progressDialog.dismiss();
+
+//                    (getActivity()).runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            updateUI();
+//                        }
+//                    });
+
                     updateUI();
+
                     Log.i("GET Status", "Successfully retrieved data");
                     Log.i("GET Status", response.body().getModelsCount().toString());
                 }
@@ -105,6 +116,13 @@ public class ModelsFragment extends Fragment {
         mModelRecyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_models, container, false);
         mModelRecyclerView.setHasFixedSize(true);
         mModelRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+//        (getActivity()).runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                updateUI();
+//            }
+//        });
 
         updateUI();
 
@@ -127,6 +145,7 @@ public class ModelsFragment extends Fragment {
             View view = inflater.inflate(R.layout.fragment_models_card_view_item, parent, false);
 
             mName = (TextView) view.findViewById(R.id.card_view_name);
+            mName.setText("TESTING!!!!");
             mTotalCostOfOwnership = (TextView) view.findViewById(R.id.card_view_tco);
         }
 
@@ -135,6 +154,7 @@ public class ModelsFragment extends Fragment {
 
             // This if statement added to prevent null object reference errors.
             if (this.model != null) {
+                Log.i("Inside IF statement", this.model.getName());
                 mName.setText(this.model.getName());
             }
 
@@ -161,6 +181,9 @@ public class ModelsFragment extends Fragment {
         public void onBindViewHolder(ModelHolder holder, int position) {
             // For our list of models, get one model by position and bind it to our view holder class.
             Model model = models.get(position);
+
+            Log.i("Just prior to binding", model.getName());
+
             holder.bindModel(model);
         }
 
