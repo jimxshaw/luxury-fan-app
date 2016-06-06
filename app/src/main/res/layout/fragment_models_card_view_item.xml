@@ -32,19 +32,19 @@
             android:layout_below="@id/card_view_image"
             android:text="CAR NAME"
             android:textColor="@color/colorPrimary"
-            android:textSize="18sp"
+            android:textSize="12sp"
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/card_view_msrp"
+            android:id="@+id/card_view_tco"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/card_view_image"
-            android:text="MSRP"
+            android:text="TCO: "
             android:textColor="@color/colorPrimary"
-            android:textSize="18sp"
+            android:textSize="12sp"
             android:textStyle="bold"/>
 
     </RelativeLayout>

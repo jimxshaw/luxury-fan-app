@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -119,10 +120,24 @@ public class ModelsFragment extends Fragment {
 
     public class ModelHolder extends RecyclerView.ViewHolder {
 
+        private Model model;
+        private TextView mName;
+        private TextView mTotalCostOfOwnership;
+
         public ModelHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.fragment_models_card_view_item, parent, false));
 
+            mName = (TextView) parent.findViewById(R.id.card_view_name);
+            mTotalCostOfOwnership = (TextView) parent.findViewById(R.id.card_view_tco);
+
         }
+
+        public void bindModel(Model model) {
+            this.model = model;
+
+            Log.i("Bound model", String.valueOf(model.getName()));
+        }
+
     }
 
     public class ModelAdapter extends RecyclerView.Adapter<ModelHolder> {
@@ -141,7 +156,8 @@ public class ModelsFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ModelHolder holder, int position) {
-
+            Model model = models.get(position);
+            holder.bindModel(model);
         }
 
         @Override
