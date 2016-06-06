@@ -87,13 +87,6 @@ public class ModelsFragment extends Fragment {
                     mModels = response.body().getModels();
                     progressDialog.dismiss();
 
-//                    (getActivity()).runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            updateUI();
-//                        }
-//                    });
-
                     updateUI();
 
                     Log.i("GET Status", "Successfully retrieved data");
@@ -113,16 +106,11 @@ public class ModelsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mModelRecyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_models, container, false);
+        View view = inflater.inflate(R.layout.fragment_models, container, false);
+
+        mModelRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mModelRecyclerView.setHasFixedSize(true);
         mModelRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-//        (getActivity()).runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                updateUI();
-//            }
-//        });
 
         updateUI();
 
@@ -140,13 +128,11 @@ public class ModelsFragment extends Fragment {
         private TextView mName;
         private TextView mTotalCostOfOwnership;
 
-        public ModelHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.fragment_models_card_view_item, parent, false));
-            View view = inflater.inflate(R.layout.fragment_models_card_view_item, parent, false);
+        public ModelHolder(View itemView) {
+            super(itemView);
 
-            mName = (TextView) view.findViewById(R.id.card_view_name);
-            mName.setText("TESTING!!!!");
-            mTotalCostOfOwnership = (TextView) view.findViewById(R.id.card_view_tco);
+            mName = (TextView) itemView.findViewById(R.id.card_view_name);
+            mTotalCostOfOwnership = (TextView) itemView.findViewById(R.id.card_view_tco);
         }
 
         public void bindModel(Model model) {
@@ -154,12 +140,9 @@ public class ModelsFragment extends Fragment {
 
             // This if statement added to prevent null object reference errors.
             if (this.model != null) {
-                Log.i("Inside IF statement", this.model.getName());
                 mName.setText(this.model.getName());
             }
 
-            // Log statement for testing purposes.
-            Log.i("Bound model", String.valueOf(this.model.getName()));
         }
 
     }
@@ -174,16 +157,15 @@ public class ModelsFragment extends Fragment {
 
         @Override
         public ModelHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ModelHolder(LayoutInflater.from(parent.getContext()), parent);
+            LayoutInflater layoutInflate = LayoutInflater.from(getActivity());
+            View view = layoutInflate.inflate(R.layout.fragment_models_card_view_item, parent, false);
+            return new ModelHolder(view);
         }
 
         @Override
         public void onBindViewHolder(ModelHolder holder, int position) {
             // For our list of models, get one model by position and bind it to our view holder class.
             Model model = models.get(position);
-
-            Log.i("Just prior to binding", model.getName());
-
             holder.bindModel(model);
         }
 
