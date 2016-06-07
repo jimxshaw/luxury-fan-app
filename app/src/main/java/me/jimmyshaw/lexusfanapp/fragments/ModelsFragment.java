@@ -2,6 +2,7 @@ package me.jimmyshaw.lexusfanapp.fragments;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -66,34 +67,15 @@ public class ModelsFragment extends Fragment {
         // Use our service generator to create the backend API interface.
         EdmundsService service = EdmundsServiceGenerator.createService(EdmundsService.class);
 
-        // Create the hash map of GET request query parameters.
-        Map<String, String> options = new HashMap<>();
-        options.put("state", "new");
-        options.put("year", "2016");
-        options.put("view", "basic");
-        options.put("api_key", API_KEY);
-        // A null category means there's no filter and the user will see all car models. So we
-        // don't have to put the category in the HashMap.
-        if (mCategory != null) {
-            options.put("category", mCategory);
-        }
-
         // Use the hash map to actually query the backend API server with a GET request.
-        Call<Models> call = service.getModels(options);
+        Call<Models> call = service.getModels(getModelsOptions());
         call.enqueue(new Callback<Models>() {
             @Override
             public void onResponse(Call<Models> call, Response<Models> response) {
                 if (response.isSuccessful()) {
                     mModels = response.body().getModels();
                     progressDialog.dismiss();
-
                     updateUI();
-
-                    Log.i("GET Status", "Successfully retrieved data");
-                    Log.i("GET Status", response.body().getModelsCount().toString());
-                }
-                else {
-                    Log.i("GET Status", "Failed to retrieve data");
                 }
             }
 
@@ -115,6 +97,21 @@ public class ModelsFragment extends Fragment {
         updateUI();
 
         return mModelRecyclerView;
+    }
+
+    private Map<String, String> getModelsOptions() {
+        // Create the hash map of GET request query parameters.
+        Map<String, String> options = new HashMap<>();
+        options.put("state", "new");
+        options.put("year", "2016");
+        options.put("view", "basic");
+        options.put("api_key", API_KEY);
+        // A null category means there's no filter and the user will see all car models. So we
+        // don't have to put the category in the HashMap.
+        if (mCategory != null) {
+            options.put("category", mCategory);
+        }
+        return options;
     }
 
     private void updateUI() {
