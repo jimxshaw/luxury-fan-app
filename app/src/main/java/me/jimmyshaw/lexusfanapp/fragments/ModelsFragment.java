@@ -122,28 +122,28 @@ public class ModelsFragment extends Fragment {
 
     private Map<String, String> getModelsAndPricesMap() {
         Map<String, String> modelsAndPrices = new HashMap<>();
-        modelsAndPrices.put("CT 200H", "");
-        modelsAndPrices.put("ES 300H", "");
-        modelsAndPrices.put("ES 350", "");
-        modelsAndPrices.put("GS 200T", "");
-        modelsAndPrices.put("GS 350", "");
-        modelsAndPrices.put("GS 450H", "");
-        modelsAndPrices.put("GS F", "");
-        modelsAndPrices.put("GX 460", "");
-        modelsAndPrices.put("IS 200T", "");
-        modelsAndPrices.put("IS 300", "");
-        modelsAndPrices.put("IS 350", "");
-        modelsAndPrices.put("LS 460", "");
-        modelsAndPrices.put("LS 600H L", "");
-        modelsAndPrices.put("LX 570", "");
-        modelsAndPrices.put("NX 200T", "");
-        modelsAndPrices.put("NX 300H", "");
-        modelsAndPrices.put("RC 200T", "");
-        modelsAndPrices.put("RC 300", "");
-        modelsAndPrices.put("RC 350", "");
-        modelsAndPrices.put("RC F", "");
-        modelsAndPrices.put("RX 350", "");
-        modelsAndPrices.put("RX 450H", "");
+        modelsAndPrices.put("CT 200h", "$31,250");
+        modelsAndPrices.put("ES 300h", "$41,020");
+        modelsAndPrices.put("ES 350", "$38,100");
+        modelsAndPrices.put("GS 200t", "$45,615");
+        modelsAndPrices.put("GS 350", "$50,000");
+        modelsAndPrices.put("GS 450h", "$63,080");
+        modelsAndPrices.put("GS F", "$84,440");
+        modelsAndPrices.put("GX 460", "$50,780");
+        modelsAndPrices.put("IS 200t", "$37,325");
+        modelsAndPrices.put("IS 300", "$39,700");
+        modelsAndPrices.put("IS 350", "$40,870");
+        modelsAndPrices.put("LS 460", "$72,520");
+        modelsAndPrices.put("LS 600h L", "$120,440");
+        modelsAndPrices.put("LX 570", "$88,880");
+        modelsAndPrices.put("NX 200t", "$34,965");
+        modelsAndPrices.put("NX 300h", "$39,720");
+        modelsAndPrices.put("RC 200t", "$39,995");
+        modelsAndPrices.put("RC 300", "$42,610");
+        modelsAndPrices.put("RC 350", "$42,780");
+        modelsAndPrices.put("RC F", "$62,805");
+        modelsAndPrices.put("RX 350", "$41,900");
+        modelsAndPrices.put("RX 450h", "$52,235");
 
         return modelsAndPrices;
     }
@@ -170,28 +170,29 @@ public class ModelsFragment extends Fragment {
         public void bindModel(Model model) {
             mModel = model;
             mName.setText(mModel.getName());
+            mPrice.setText(mModelsAndPrices.get(mModel.getName()));
 
         }
 
         private int bindImage(String modelName) {
             switch (modelName) {
-                case "CT 200H":
+                case "CT 200h":
                     return 0;
-                case "ES 300H":
+                case "ES 300h":
                     return 0;
                 case "ES 350":
                     return 0;
-                case "GS 200T":
+                case "GS 200t":
                     return 0;
                 case "GS 350":
                     return 0;
-                case "GS 450H":
+                case "GS 450h":
                     return 0;
                 case "GS F":
                     return 0;
                 case "GX 460":
                     return 0;
-                case "IS 200T":
+                case "IS 200t":
                     return 0;
                 case "IS 300":
                     return 0;
@@ -199,15 +200,15 @@ public class ModelsFragment extends Fragment {
                     return 0;
                 case "LS 460":
                     return 0;
-                case "LS 600H L":
+                case "LS 600h L":
                     return 0;
                 case "LX 570":
                     return 0;
-                case "NX 200T":
+                case "NX 200t":
                     return 0;
-                case "NX 300H":
+                case "NX 300h":
                     return 0;
-                case "RC 200T":
+                case "RC 200t":
                     return 0;
                 case "RC 300":
                     return 0;
@@ -217,7 +218,7 @@ public class ModelsFragment extends Fragment {
                     return 0;
                 case "RX 350":
                     return 0;
-                case "RX 450H":
+                case "RX 450h":
                     return 0;
                 default:
                     return 0;
