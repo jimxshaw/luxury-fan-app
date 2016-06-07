@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -39,6 +40,8 @@ public class ModelsFragment extends Fragment {
 
     private List<Model> mModels;
 
+    private Map<String, String> mModelsAndPrices;
+
     // New instances of ModelsFragment can only be created through this static newInstance
     // method, which takes a model category argument such as null, sedan, coupe etc. This way, our
     // list of models can be filtered by that particular category.
@@ -58,6 +61,9 @@ public class ModelsFragment extends Fragment {
         // this fragment and assign it to a variable.
         mCategory = getArguments().getString(ARG_CATEGORY);
 
+        // Instantiate our map of known models and prices to be used later in the ViewHolder.
+        mModelsAndPrices = getModelsAndPricesMap();
+
         // Add a progress dialog spinner that will display during interactions with the server.
         final ProgressDialog progressDialog = new ProgressDialog(getActivity(), R.style.ProgressDialogTheme);
         progressDialog.setCancelable(false);
@@ -67,7 +73,7 @@ public class ModelsFragment extends Fragment {
         // Use our service generator to create the backend API interface.
         EdmundsService service = EdmundsServiceGenerator.createService(EdmundsService.class);
 
-        // Use the hash map to actually query the backend API server with a GET request.
+        // Use a map of options to actually query the backend API server with a GET request.
         Call<Models> call = service.getModels(getModelsOptions());
         call.enqueue(new Callback<Models>() {
             @Override
@@ -114,6 +120,34 @@ public class ModelsFragment extends Fragment {
         return options;
     }
 
+    private Map<String, String> getModelsAndPricesMap() {
+        Map<String, String> modelsAndPrices = new HashMap<>();
+        modelsAndPrices.put("CT 200H", "");
+        modelsAndPrices.put("ES 300H", "");
+        modelsAndPrices.put("ES 350", "");
+        modelsAndPrices.put("GS 200T", "");
+        modelsAndPrices.put("GS 350", "");
+        modelsAndPrices.put("GS 450H", "");
+        modelsAndPrices.put("GS F", "");
+        modelsAndPrices.put("GX 460", "");
+        modelsAndPrices.put("IS 200T", "");
+        modelsAndPrices.put("IS 300", "");
+        modelsAndPrices.put("IS 350", "");
+        modelsAndPrices.put("LS 460", "");
+        modelsAndPrices.put("LS 600H L", "");
+        modelsAndPrices.put("LX 570", "");
+        modelsAndPrices.put("NX 200T", "");
+        modelsAndPrices.put("NX 300H", "");
+        modelsAndPrices.put("RC 200T", "");
+        modelsAndPrices.put("RC 300", "");
+        modelsAndPrices.put("RC 350", "");
+        modelsAndPrices.put("RC F", "");
+        modelsAndPrices.put("RX 350", "");
+        modelsAndPrices.put("RX 450H", "");
+
+        return modelsAndPrices;
+    }
+
     private void updateUI() {
         mModelAdapter = new ModelAdapter(mModels);
         mModelRecyclerView.setAdapter(mModelAdapter);
@@ -121,25 +155,73 @@ public class ModelsFragment extends Fragment {
 
     public class ModelHolder extends RecyclerView.ViewHolder {
 
-        private Model model;
+        private Model mModel;
         private TextView mName;
-        private TextView mTotalCostOfOwnership;
+        private TextView mPrice;
+        private ImageView mImage;
 
         public ModelHolder(View itemView) {
             super(itemView);
-
             mName = (TextView) itemView.findViewById(R.id.card_view_name);
-            mTotalCostOfOwnership = (TextView) itemView.findViewById(R.id.card_view_tco);
+            mPrice = (TextView) itemView.findViewById(R.id.card_view_price);
+            mImage = (ImageView) itemView.findViewById(R.id.card_view_image);
         }
 
         public void bindModel(Model model) {
-            this.model = model;
+            mModel = model;
+            mName.setText(mModel.getName());
 
-            // This if statement added to prevent null object reference errors.
-            if (this.model != null) {
-                mName.setText(this.model.getName());
+        }
+
+        private int bindImage(String modelName) {
+            switch (modelName) {
+                case "CT 200H":
+                    return 0;
+                case "ES 300H":
+                    return 0;
+                case "ES 350":
+                    return 0;
+                case "GS 200T":
+                    return 0;
+                case "GS 350":
+                    return 0;
+                case "GS 450H":
+                    return 0;
+                case "GS F":
+                    return 0;
+                case "GX 460":
+                    return 0;
+                case "IS 200T":
+                    return 0;
+                case "IS 300":
+                    return 0;
+                case "IS 350":
+                    return 0;
+                case "LS 460":
+                    return 0;
+                case "LS 600H L":
+                    return 0;
+                case "LX 570":
+                    return 0;
+                case "NX 200T":
+                    return 0;
+                case "NX 300H":
+                    return 0;
+                case "RC 200T":
+                    return 0;
+                case "RC 300":
+                    return 0;
+                case "RC 350":
+                    return 0;
+                case "RC F":
+                    return 0;
+                case "RX 350":
+                    return 0;
+                case "RX 450H":
+                    return 0;
+                default:
+                    return 0;
             }
-
         }
 
     }
