@@ -171,57 +171,57 @@ public class ModelsFragment extends Fragment {
             mModel = model;
             mName.setText(mModel.getName());
             mPrice.setText(mModelsAndPrices.get(mModel.getName()));
-
+            mImage.setImageResource(bindImage(mModel.getName()));
         }
 
         private int bindImage(String modelName) {
             switch (modelName) {
                 case "CT 200h":
-                    return 0;
+                    return R.drawable.model_ct_200h;
                 case "ES 300h":
-                    return 0;
+                    return R.drawable.model_es_300h;
                 case "ES 350":
-                    return 0;
+                    return R.drawable.model_es_350;
                 case "GS 200t":
-                    return 0;
+                    return R.drawable.model_gs_200t;
                 case "GS 350":
-                    return 0;
+                    return R.drawable.model_gs_350;
                 case "GS 450h":
-                    return 0;
+                    return R.drawable.model_gs_450h;
                 case "GS F":
-                    return 0;
+                    return R.drawable.model_gs_f;
                 case "GX 460":
-                    return 0;
+                    return R.drawable.model_gx_460;
                 case "IS 200t":
-                    return 0;
+                    return R.drawable.model_is_200t;
                 case "IS 300":
-                    return 0;
+                    return R.drawable.model_is_300;
                 case "IS 350":
-                    return 0;
+                    return R.drawable.model_is_350;
                 case "LS 460":
-                    return 0;
+                    return R.drawable.model_ls_460;
                 case "LS 600h L":
-                    return 0;
+                    return R.drawable.model_ls_600h_l;
                 case "LX 570":
-                    return 0;
+                    return R.drawable.model_lx_570;
                 case "NX 200t":
-                    return 0;
+                    return R.drawable.model_nx_200t;
                 case "NX 300h":
-                    return 0;
+                    return R.drawable.model_nx_300h;
                 case "RC 200t":
-                    return 0;
+                    return R.drawable.model_rc_200t;
                 case "RC 300":
-                    return 0;
+                    return R.drawable.model_rc_300;
                 case "RC 350":
-                    return 0;
+                    return R.drawable.model_rc_350;
                 case "RC F":
-                    return 0;
+                    return R.drawable.mode_rc_f;
                 case "RX 350":
-                    return 0;
+                    return R.drawable.model_rx_350;
                 case "RX 450h":
-                    return 0;
+                    return R.drawable.model_rx_450h;
                 default:
-                    return 0;
+                    return R.drawable.model_es_300h;
             }
         }
 
