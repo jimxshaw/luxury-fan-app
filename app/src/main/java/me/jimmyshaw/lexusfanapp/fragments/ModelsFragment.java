@@ -1,6 +1,10 @@
 package me.jimmyshaw.lexusfanapp.fragments;
 
 import android.app.ProgressDialog;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -152,6 +156,33 @@ public class ModelsFragment extends Fragment {
         mModelRecyclerView.setAdapter(mModelAdapter);
     }
 
+    // This method could used to scale down resources.
+    private Bitmap decodeResource(Resources res, int id) {
+        Bitmap bitmap = null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        /*
+            Regarding inSampleSize:
+            If set to a value > 1, requests the decoder to subsample the original image, returning
+            a smaller image to save memory. The sample size is the number of pixels in either
+            dimension that correspond to a single pixel in the decoded bitmap. For example,
+            inSampleSize == 4 returns an image that is 1/4 the width/height of the original,
+            and 1/16 the number of pixels.
+        */
+        for (options.inSampleSize = 1; options.inSampleSize <= 32; options.inSampleSize++) {
+            try {
+                bitmap = BitmapFactory.decodeResource(res, id, options);
+                Log.d("Inside decodeResource", "Decoded successfully for sampleSize " + options.inSampleSize);
+                break;
+            }
+            catch (OutOfMemoryError e) {
+                // If an OutOfMemoryError occurs, we continue with the for loop to the next
+                // inSampleSize value.
+                Log.e("Inside decodeResources", "OutOfMemoryError while reading file for sampleSize " + options.inSampleSize + " re-trying with higher value");
+            }
+        }
+        return bitmap;
+    }
+
     public class ModelHolder extends RecyclerView.ViewHolder {
 
         private Model mModel;
@@ -171,9 +202,17 @@ public class ModelsFragment extends Fragment {
             mName.setText(mModel.getName());
             mPrice.setText(mModelsAndPrices.get(mModel.getName()));
 
+            // Find the model image from resources and capture its pixel width and height. They'll be
+            // used with the Picasso resize method to scale down the large image.
+            int imageId = bindImage(mModel.getName());
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources().getDrawable(imageId);
+            int imagePixelWidth = bitmapDrawable.getBitmap().getWidth();
+            int imagePixelHeight = bitmapDrawable.getBitmap().getHeight();
+
+            // Use Picasso to resize the model image and load it into our image view.
             Picasso.with(getActivity())
-                    .load(bindImage(mModel.getName()))
-                    .resize(400, 200)
+                    .load(imageId)
+                    .resize(imagePixelWidth / 4, imagePixelHeight / 4)
                     .into(mImage);
 
         }
