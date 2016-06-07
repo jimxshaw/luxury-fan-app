@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -168,7 +170,12 @@ public class ModelsFragment extends Fragment {
             mModel = model;
             mName.setText(mModel.getName());
             mPrice.setText(mModelsAndPrices.get(mModel.getName()));
-            mImage.setImageResource(bindImage(mModel.getName()));
+
+            Picasso.with(getActivity())
+                    .load(bindImage(mModel.getName()))
+                    .resize(400, 200)
+                    .into(mImage);
+
         }
 
         private int bindImage(String modelName) {
