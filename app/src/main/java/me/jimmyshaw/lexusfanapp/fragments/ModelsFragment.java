@@ -202,12 +202,14 @@ public class ModelsFragment extends Fragment {
             mName.setText(mModel.getName());
             mPrice.setText(mModelsAndPrices.get(mModel.getName()));
 
+            //TODO: Either implement RxAndroid or AsyncTask
+            
             // Find the model image from resources and capture its pixel width and height. They'll be
             // used with the Picasso resize method to scale down the large image.
             int imageId = bindImage(mModel.getName());
             BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources().getDrawable(imageId);
-            int imagePixelWidth = bitmapDrawable.getBitmap().getWidth();
-            int imagePixelHeight = bitmapDrawable.getBitmap().getHeight();
+            int imagePixelWidth = bitmapDrawable.getIntrinsicWidth();
+            int imagePixelHeight = bitmapDrawable.getIntrinsicHeight();
 
             // Use Picasso to resize the model image and load it into our image view.
             Picasso.with(getActivity())
