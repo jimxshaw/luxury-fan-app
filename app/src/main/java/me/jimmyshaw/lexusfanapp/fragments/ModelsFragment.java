@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -236,11 +237,12 @@ public class ModelsFragment extends Fragment {
         }
     }
 
-    private void showInfoDialog(int resourceStringId) {
-        String resourceString = getResources().getString(resourceStringId);
+    private void showInfoDialog(int titleId, int bodyId) {
+        String title = getResources().getString(titleId);
+        String body = getResources().getString(bodyId);
         AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-        alertDialog.setTitle("Information");
-        alertDialog.setMessage(resourceString);
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(body);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -265,7 +267,7 @@ public class ModelsFragment extends Fragment {
             mName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showInfoDialog(R.string.car_name_info);
+                    showInfoDialog(R.string.car_name_info_title, R.string.car_name_info);
                 }
             });
             mPrice = (TextView) itemView.findViewById(R.id.card_view_price);
@@ -273,7 +275,7 @@ public class ModelsFragment extends Fragment {
             mPrice.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showInfoDialog(R.string.car_price_info);
+                    showInfoDialog(R.string.car_price_info_title, R.string.car_price_info);
                 }
             });
             mImage = (ImageView) itemView.findViewById(R.id.card_view_image);
@@ -296,6 +298,7 @@ public class ModelsFragment extends Fragment {
         @Override
         public void onClick(View v) {
             // This onClick method is bound to our model image.
+            Toast.makeText(getActivity(), "Activated model detail page!", Toast.LENGTH_SHORT).show();
         }
     }
 

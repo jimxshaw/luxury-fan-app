@@ -9,6 +9,8 @@
     <string name="car_name">CAR NAME</string>
     <string name="car_price">PRICE</string>
 
+    <string name="car_name_info_title">Naming Convention</string>
     <string name="car_name_info">This is info regarding Lexus\'s model naming convention</string>
-    <string name="car_price_info">MSRP in US dollars for this specific Lexus model</string>
+    <string name="car_price_info_title">MSRP</string>
+    <string name="car_price_info">Manufacturer\'s Suggested Retail Price for this specific model in US dollars</string>
 </resources>
