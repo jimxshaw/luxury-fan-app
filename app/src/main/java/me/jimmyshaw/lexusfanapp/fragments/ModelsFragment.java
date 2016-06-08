@@ -228,7 +228,7 @@ public class ModelsFragment extends Fragment {
             case "RC 350":
                 return R.drawable.model_rc_350;
             case "RC F":
-                return R.drawable.mode_rc_f;
+                return R.drawable.model_rc_f;
             case "RX 350":
                 return R.drawable.model_rx_350;
             case "RX 450h":
@@ -256,14 +256,15 @@ public class ModelsFragment extends Fragment {
             mModel = model;
             mName.setText(mModel.getName());
             mPrice.setText(mModelsAndPrices.get(mModel.getName()));
+            mImage.setImageResource(bindImage(mModel.getName()));
 
             // Use Picasso to resize the model image and load it into our image view.
-            Picasso.with(getActivity())
-                    .load(bindImage(mModel.getName()))
-                    .placeholder(R.drawable.model_logo)
-                    .resize(500, 300)
-                    .centerInside()
-                    .into(mImage);
+//            Picasso.with(getActivity())
+//                    .load(bindImage(mModel.getName()))
+//                    .placeholder(R.drawable.model_logo)
+//                    .resize(500, 300)
+//                    .centerInside()
+//                    .into(mImage);
 
         }
     }
