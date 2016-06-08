@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -247,8 +248,11 @@ public class ModelsFragment extends Fragment {
 
         public ModelHolder(View itemView) {
             super(itemView);
+            // Capture our widgets and make the text views be underlined.
             mName = (TextView) itemView.findViewById(R.id.card_view_name);
+            mName.setPaintFlags(mName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
             mPrice = (TextView) itemView.findViewById(R.id.card_view_price);
+            mPrice.setPaintFlags(mPrice.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
             mImage = (ImageView) itemView.findViewById(R.id.card_view_image);
         }
 

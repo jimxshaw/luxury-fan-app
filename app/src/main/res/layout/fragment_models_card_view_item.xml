@@ -30,9 +30,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/card_view_image"
-            android:text="CAR NAME"
-            android:textColor="@color/colorPrimary"
-            android:textSize="12sp"
+            android:text="@string/car_name"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -42,9 +42,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/card_view_image"
-            android:text="PRICE: "
-            android:textColor="@color/colorPrimary"
-            android:textSize="12sp"
+            android:text="@string/car_price"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
             android:textStyle="bold"/>
 
     </RelativeLayout>
