@@ -1,13 +1,14 @@
 package me.jimmyshaw.lexusfanapp.fragments;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -31,10 +32,6 @@ import me.jimmyshaw.lexusfanapp.edmunds.util.EdmundsServiceGenerator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 public class ModelsFragment extends Fragment {
 
@@ -239,7 +236,21 @@ public class ModelsFragment extends Fragment {
         }
     }
 
-    public class ModelHolder extends RecyclerView.ViewHolder {
+    private void showInfoDialog(int resourceStringId) {
+        String resourceString = getResources().getString(resourceStringId);
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setTitle("Information");
+        alertDialog.setMessage(resourceString);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
+
+    public class ModelHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Model mModel;
         private TextView mName;
@@ -251,9 +262,22 @@ public class ModelsFragment extends Fragment {
             // Capture our widgets and make the text views be underlined.
             mName = (TextView) itemView.findViewById(R.id.card_view_name);
             mName.setPaintFlags(mName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            mName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showInfoDialog(R.string.car_name_info);
+                }
+            });
             mPrice = (TextView) itemView.findViewById(R.id.card_view_price);
             mPrice.setPaintFlags(mPrice.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            mPrice.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showInfoDialog(R.string.car_price_info);
+                }
+            });
             mImage = (ImageView) itemView.findViewById(R.id.card_view_image);
+            mImage.setOnClickListener(this);
         }
 
         public void bindModel(Model model) {
@@ -267,6 +291,11 @@ public class ModelsFragment extends Fragment {
                     .placeholder(R.drawable.model_logo)
                     .into(mImage);
 
+        }
+
+        @Override
+        public void onClick(View v) {
+            // This onClick method is bound to our model image.
         }
     }
 
