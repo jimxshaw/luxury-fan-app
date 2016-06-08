@@ -234,7 +234,7 @@ public class ModelsFragment extends Fragment {
             case "RX 450h":
                 return R.drawable.model_rx_450h;
             default:
-                return R.drawable.model_es_300h;
+                return R.drawable.model_logo;
         }
     }
 
@@ -256,15 +256,12 @@ public class ModelsFragment extends Fragment {
             mModel = model;
             mName.setText(mModel.getName());
             mPrice.setText(mModelsAndPrices.get(mModel.getName()));
-            mImage.setImageResource(bindImage(mModel.getName()));
 
             // Use Picasso to resize the model image and load it into our image view.
-//            Picasso.with(getActivity())
-//                    .load(bindImage(mModel.getName()))
-//                    .placeholder(R.drawable.model_logo)
-//                    .resize(500, 300)
-//                    .centerInside()
-//                    .into(mImage);
+            Picasso.with(getActivity())
+                    .load(bindImage(mModel.getName()))
+                    .placeholder(R.drawable.model_logo)
+                    .into(mImage);
 
         }
     }

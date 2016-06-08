@@ -22,7 +22,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="30dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/model_ct_200h"/>
+            android:src="@drawable/model_logo"/>
 
         <TextView
             android:id="@+id/card_view_name"
