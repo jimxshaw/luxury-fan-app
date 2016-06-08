@@ -30,6 +30,10 @@ import me.jimmyshaw.lexusfanapp.edmunds.util.EdmundsServiceGenerator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 public class ModelsFragment extends Fragment {
 
@@ -183,6 +187,57 @@ public class ModelsFragment extends Fragment {
         return bitmap;
     }
 
+    private int bindImage(String modelName) {
+        switch (modelName) {
+            case "CT 200h":
+                return R.drawable.model_ct_200h;
+            case "ES 300h":
+                return R.drawable.model_es_300h;
+            case "ES 350":
+                return R.drawable.model_es_350;
+            case "GS 200t":
+                return R.drawable.model_gs_200t;
+            case "GS 350":
+                return R.drawable.model_gs_350;
+            case "GS 450h":
+                return R.drawable.model_gs_450h;
+            case "GS F":
+                return R.drawable.model_gs_f;
+            case "GX 460":
+                return R.drawable.model_gx_460;
+            case "IS 200t":
+                return R.drawable.model_is_200t;
+            case "IS 300":
+                return R.drawable.model_is_300;
+            case "IS 350":
+                return R.drawable.model_is_350;
+            case "LS 460":
+                return R.drawable.model_ls_460;
+            case "LS 600h L":
+                return R.drawable.model_ls_600h_l;
+            case "LX 570":
+                return R.drawable.model_lx_570;
+            case "NX 200t":
+                return R.drawable.model_nx_200t;
+            case "NX 300h":
+                return R.drawable.model_nx_300h;
+            case "RC 200t":
+                return R.drawable.model_rc_200t;
+            case "RC 300":
+                return R.drawable.model_rc_300;
+            case "RC 350":
+                return R.drawable.model_rc_350;
+            case "RC F":
+                return R.drawable.mode_rc_f;
+            case "RX 350":
+                return R.drawable.model_rx_350;
+            case "RX 450h":
+                return R.drawable.model_rx_450h;
+            default:
+                return R.drawable.model_es_300h;
+        }
+    }
+
     public class ModelHolder extends RecyclerView.ViewHolder {
 
         private Model mModel;
@@ -201,73 +256,36 @@ public class ModelsFragment extends Fragment {
             mModel = model;
             mName.setText(mModel.getName());
             mPrice.setText(mModelsAndPrices.get(mModel.getName()));
-
-            //TODO: Either implement RxAndroid or AsyncTask
             
-            // Find the model image from resources and capture its pixel width and height. They'll be
-            // used with the Picasso resize method to scale down the large image.
-            int imageId = bindImage(mModel.getName());
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources().getDrawable(imageId);
-            int imagePixelWidth = bitmapDrawable.getIntrinsicWidth();
-            int imagePixelHeight = bitmapDrawable.getIntrinsicHeight();
+            Observable.just(bindImage(mModel.getName()))
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<Integer>() {
+                        @Override
+                        public void call(Integer integer) {
+                            BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources().getDrawable(integer);
+                            int pixelWidth = bitmapDrawable.getIntrinsicWidth();
+                            int pixelHeight = bitmapDrawable.getIntrinsicHeight();
+                            Picasso.with(getActivity())
+                                    .load(integer)
+                                    .resize(pixelWidth / 4, pixelHeight / 4)
+                                    .into(mImage);
+                        }
+                    });
 
-            // Use Picasso to resize the model image and load it into our image view.
-            Picasso.with(getActivity())
-                    .load(imageId)
-                    .resize(imagePixelWidth / 4, imagePixelHeight / 4)
-                    .into(mImage);
+//            // Find the model image from resources and capture its pixel width and height. They'll be
+//            // used with the Picasso resize method to scale down the large image.
+//            int imageId = bindImage(mModel.getName());
+//            BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources().getDrawable(imageId);
+//            int imagePixelWidth = bitmapDrawable.getIntrinsicWidth();
+//            int imagePixelHeight = bitmapDrawable.getIntrinsicHeight();
+//
+//            // Use Picasso to resize the model image and load it into our image view.
+//            Picasso.with(getActivity())
+//                    .load(imageId)
+//                    .resize(imagePixelWidth / 4, imagePixelHeight / 4)
+//                    .into(mImage);
 
-        }
-
-        private int bindImage(String modelName) {
-            switch (modelName) {
-                case "CT 200h":
-                    return R.drawable.model_ct_200h;
-                case "ES 300h":
-                    return R.drawable.model_es_300h;
-                case "ES 350":
-                    return R.drawable.model_es_350;
-                case "GS 200t":
-                    return R.drawable.model_gs_200t;
-                case "GS 350":
-                    return R.drawable.model_gs_350;
-                case "GS 450h":
-                    return R.drawable.model_gs_450h;
-                case "GS F":
-                    return R.drawable.model_gs_f;
-                case "GX 460":
-                    return R.drawable.model_gx_460;
-                case "IS 200t":
-                    return R.drawable.model_is_200t;
-                case "IS 300":
-                    return R.drawable.model_is_300;
-                case "IS 350":
-                    return R.drawable.model_is_350;
-                case "LS 460":
-                    return R.drawable.model_ls_460;
-                case "LS 600h L":
-                    return R.drawable.model_ls_600h_l;
-                case "LX 570":
-                    return R.drawable.model_lx_570;
-                case "NX 200t":
-                    return R.drawable.model_nx_200t;
-                case "NX 300h":
-                    return R.drawable.model_nx_300h;
-                case "RC 200t":
-                    return R.drawable.model_rc_200t;
-                case "RC 300":
-                    return R.drawable.model_rc_300;
-                case "RC 350":
-                    return R.drawable.model_rc_350;
-                case "RC F":
-                    return R.drawable.mode_rc_f;
-                case "RX 350":
-                    return R.drawable.model_rx_350;
-                case "RX 450h":
-                    return R.drawable.model_rx_450h;
-                default:
-                    return R.drawable.model_es_300h;
-            }
         }
     }
 
