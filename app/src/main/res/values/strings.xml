@@ -10,7 +10,23 @@
     <string name="car_price">PRICE</string>
 
     <string name="car_name_info_title">Naming Convention</string>
-    <string name="car_name_info">This is info regarding Lexus\'s model naming convention</string>
+    <string name="car_name_info">\s
+        CT: Creative Touring\n
+        ES: Executive Sedan\n
+        GS: Grand Sedan\n
+        GX: Grand Crossover\n
+        IS: Intelligent Sport\n
+        LS: Luxury Sedan\n
+        LX: Luxury Crossover\n
+        NX: Nimble Crossover\n
+        RC: Radiant Coupe\n
+        RX: Radiant Crossover\n\n
+        ###: Engine size in liters x 100\n\n
+        h: Hybrid\n
+        t: Turbo\n
+        L: Long\n
+        F: Performance Flagship
+    </string>
     <string name="car_price_info_title">MSRP</string>
     <string name="car_price_info">Manufacturer\'s Suggested Retail Price for this specific model in US dollars</string>
 </resources>
