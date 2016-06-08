@@ -256,35 +256,14 @@ public class ModelsFragment extends Fragment {
             mModel = model;
             mName.setText(mModel.getName());
             mPrice.setText(mModelsAndPrices.get(mModel.getName()));
-            
-            Observable.just(bindImage(mModel.getName()))
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Action1<Integer>() {
-                        @Override
-                        public void call(Integer integer) {
-                            BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources().getDrawable(integer);
-                            int pixelWidth = bitmapDrawable.getIntrinsicWidth();
-                            int pixelHeight = bitmapDrawable.getIntrinsicHeight();
-                            Picasso.with(getActivity())
-                                    .load(integer)
-                                    .resize(pixelWidth / 4, pixelHeight / 4)
-                                    .into(mImage);
-                        }
-                    });
 
-//            // Find the model image from resources and capture its pixel width and height. They'll be
-//            // used with the Picasso resize method to scale down the large image.
-//            int imageId = bindImage(mModel.getName());
-//            BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources().getDrawable(imageId);
-//            int imagePixelWidth = bitmapDrawable.getIntrinsicWidth();
-//            int imagePixelHeight = bitmapDrawable.getIntrinsicHeight();
-//
-//            // Use Picasso to resize the model image and load it into our image view.
-//            Picasso.with(getActivity())
-//                    .load(imageId)
-//                    .resize(imagePixelWidth / 4, imagePixelHeight / 4)
-//                    .into(mImage);
+            // Use Picasso to resize the model image and load it into our image view.
+            Picasso.with(getActivity())
+                    .load(bindImage(mModel.getName()))
+                    .placeholder(R.drawable.model_logo)
+                    .resize(500, 300)
+                    .centerInside()
+                    .into(mImage);
 
         }
     }
