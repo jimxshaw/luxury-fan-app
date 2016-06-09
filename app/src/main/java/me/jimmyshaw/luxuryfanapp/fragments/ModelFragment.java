@@ -34,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ModelsFragment extends Fragment {
+public class ModelFragment extends Fragment {
 
     private final String API_KEY = "k5whpdvu4rf2h2gj3wuzaysg";
 
@@ -48,16 +48,16 @@ public class ModelsFragment extends Fragment {
 
     private Map<String, String> mModelsAndPrices;
 
-    // New instances of ModelsFragment can only be created through this static newInstance
+    // New instances of ModelFragment can only be created through this static newInstance
     // method, which takes a model category argument such as null, sedan, coupe etc. This way, our
     // list of models can be filtered by that particular category.
     public static Fragment newInstance(String category) {
         Bundle args = new Bundle();
         args.putString(ARG_CATEGORY, category);
-        ModelsFragment modelsFragment = new ModelsFragment();
-        modelsFragment.setArguments(args);
+        ModelFragment modelFragment = new ModelFragment();
+        modelFragment.setArguments(args);
 
-        return modelsFragment;
+        return modelFragment;
     }
 
     @Override
@@ -100,7 +100,7 @@ public class ModelsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_models, container, false);
+        View view = inflater.inflate(R.layout.fragment_model, container, false);
 
         mModelRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mModelRecyclerView.setHasFixedSize(true);
@@ -313,7 +313,7 @@ public class ModelsFragment extends Fragment {
         @Override
         public ModelHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflate = LayoutInflater.from(getActivity());
-            View view = layoutInflate.inflate(R.layout.fragment_models_card_view_item, parent, false);
+            View view = layoutInflate.inflate(R.layout.fragment_model_card_view_item, parent, false);
             return new ModelHolder(view);
         }
 

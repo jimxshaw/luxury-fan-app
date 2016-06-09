@@ -7,14 +7,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.List;
 
 // An adapter holds data and inflates data. The data to be used with this adapter comes from
-// ModelsActivity. They comprise of a list of fragments and a list of tab titles. The adapter
+// ModelActivity. They comprise of a list of fragments and a list of tab titles. The adapter
 // inflates the passed in data so they can be used with our viewpager items.
-public class ModelsAdapter extends FragmentPagerAdapter {
+public class ModelAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> mFragmentList;
     private List<String> mTabTitleList;
 
-    public ModelsAdapter(FragmentManager fm, List<Fragment> fragmentList, List<String> tabTitleList) {
+    public ModelAdapter(FragmentManager fm, List<Fragment> fragmentList, List<String> tabTitleList) {
         super(fm);
         mFragmentList = fragmentList;
         mTabTitleList = tabTitleList;

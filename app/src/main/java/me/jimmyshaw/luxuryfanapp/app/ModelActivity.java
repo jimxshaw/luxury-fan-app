@@ -17,10 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.jimmyshaw.luxuryfanapp.R;
-import me.jimmyshaw.luxuryfanapp.adapters.ModelsAdapter;
-import me.jimmyshaw.luxuryfanapp.fragments.ModelsFragment;
+import me.jimmyshaw.luxuryfanapp.adapters.ModelAdapter;
+import me.jimmyshaw.luxuryfanapp.fragments.ModelFragment;
 
-public class ModelsActivity extends AppCompatActivity
+public class ModelActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar mToolbar;
@@ -33,7 +33,7 @@ public class ModelsActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_models);
+        setContentView(R.layout.activity_model);
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +48,7 @@ public class ModelsActivity extends AppCompatActivity
 
         prepareDataResource();
 
-        ModelsAdapter adapter = new ModelsAdapter(getSupportFragmentManager(), mFragmentList, mTabTitleList);
+        ModelAdapter adapter = new ModelAdapter(getSupportFragmentManager(), mFragmentList, mTabTitleList);
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
@@ -76,11 +76,11 @@ public class ModelsActivity extends AppCompatActivity
     }
 
     private void prepareDataResource() {
-        addData(ModelsFragment.newInstance(null), "ALL");
-        addData(ModelsFragment.newInstance("Sedan"), "SEDAN");
-        addData(ModelsFragment.newInstance("Coupe"), "COUPE");
-        addData(ModelsFragment.newInstance("4dr SUV"), "SUV");
-        addData(ModelsFragment.newInstance("4dr Hatchback"), "OTHER");
+        addData(ModelFragment.newInstance(null), "ALL");
+        addData(ModelFragment.newInstance("Sedan"), "SEDAN");
+        addData(ModelFragment.newInstance("Coupe"), "COUPE");
+        addData(ModelFragment.newInstance("4dr SUV"), "SUV");
+        addData(ModelFragment.newInstance("4dr Hatchback"), "OTHER");
     }
 
     private void addData(Fragment fragment, String tabTitle) {
