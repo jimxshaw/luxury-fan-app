@@ -12,10 +12,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Duration of splash screen in milliseconds.
-        final int DISPLAY_LENGTH = 3000;
+        final int DISPLAY_LENGTH = 2000;
 
-        // The handler will start a new activity and then close the splash screen after
-        // a set duration.
+        // The handler will delay starting the new activity after a set duration.
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

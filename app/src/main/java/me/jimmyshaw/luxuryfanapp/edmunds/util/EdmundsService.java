@@ -8,7 +8,7 @@ import retrofit2.http.GET;
 import retrofit2.http.QueryMap;
 
 public interface EdmundsService {
-    @GET("models")
+    @GET("activity_model")
     Call<Models> getModels(
             @QueryMap Map<String, String> options
     );

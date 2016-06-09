@@ -50,7 +50,7 @@ public class ModelFragment extends Fragment {
 
     // New instances of ModelFragment can only be created through this static newInstance
     // method, which takes a model category argument such as null, sedan, coupe etc. This way, our
-    // list of models can be filtered by that particular category.
+    // list of activity_model can be filtered by that particular category.
     public static Fragment newInstance(String category) {
         Bundle args = new Bundle();
         args.putString(ARG_CATEGORY, category);
@@ -67,7 +67,7 @@ public class ModelFragment extends Fragment {
         // this fragment and assign it to a variable.
         mCategory = getArguments().getString(ARG_CATEGORY);
 
-        // Instantiate our map of known models and prices to be used later in the ViewHolder.
+        // Instantiate our map of known activity_model and prices to be used later in the ViewHolder.
         mModelsAndPrices = getModelsAndPricesMap();
 
         // Add a progress dialog spinner that will display during interactions with the server.
@@ -118,7 +118,7 @@ public class ModelFragment extends Fragment {
         options.put("year", "2016");
         options.put("view", "basic");
         options.put("api_key", API_KEY);
-        // A null category means there's no filter and the user will see all car models. So we
+        // A null category means there's no filter and the user will see all car activity_model. So we
         // don't have to put the category in the HashMap.
         if (mCategory != null) {
             options.put("category", mCategory);
@@ -319,16 +319,16 @@ public class ModelFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ModelHolder holder, int position) {
-            // For our list of models, get one model by position and bind it to our view holder class.
+            // For our list of activity_model, get one model by position and bind it to our view holder class.
             Model model = models.get(position);
             holder.bindModel(model);
         }
 
         @Override
         public int getItemCount() {
-            // Check for the numbers of models in our list. If it's null, meaning our async GET
+            // Check for the numbers of activity_model in our list. If it's null, meaning our async GET
             // request from the server hasn't completed yet, return 0. When the GET requests completes
-            // our list of models will be filled, our UI will update and the cars will appear.
+            // our list of activity_model will be filled, our UI will update and the cars will appear.
             return models == null ? 0 : models.size();
         }
     }
