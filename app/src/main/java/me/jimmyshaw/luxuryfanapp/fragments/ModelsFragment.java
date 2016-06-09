@@ -1,4 +1,4 @@
-package me.jimmyshaw.lexusfanapp.fragments;
+package me.jimmyshaw.luxuryfanapp.fragments;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -25,11 +25,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.jimmyshaw.lexusfanapp.R;
-import me.jimmyshaw.lexusfanapp.edmunds.Model;
-import me.jimmyshaw.lexusfanapp.edmunds.Models;
-import me.jimmyshaw.lexusfanapp.edmunds.util.EdmundsService;
-import me.jimmyshaw.lexusfanapp.edmunds.util.EdmundsServiceGenerator;
+import me.jimmyshaw.luxuryfanapp.R;
+import me.jimmyshaw.luxuryfanapp.edmunds.Model;
+import me.jimmyshaw.luxuryfanapp.edmunds.Models;
+import me.jimmyshaw.luxuryfanapp.edmunds.util.EdmundsService;
+import me.jimmyshaw.luxuryfanapp.edmunds.util.EdmundsServiceGenerator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -267,7 +267,7 @@ public class ModelsFragment extends Fragment {
             mName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showInfoDialog(R.string.car_name_info_title, R.string.car_name_info);
+                    showInfoDialog(R.string.car_name_info_title, R.string.lexus_car_name_info);
                 }
             });
             mPrice = (TextView) itemView.findViewById(R.id.card_view_price);

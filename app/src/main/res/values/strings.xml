@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">2016 Lexus Fan App</string>
+    <string name="app_name">2016 Luxury Cars App</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -10,7 +10,7 @@
     <string name="car_price">PRICE</string>
 
     <string name="car_name_info_title">Naming Convention</string>
-    <string name="car_name_info">\s
+    <string name="lexus_car_name_info">\s
         CT: Creative Touring\n
         ES: Executive Sedan\n
         GS: Grand Sedan\n

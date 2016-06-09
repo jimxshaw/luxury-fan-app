@@ -1,8 +1,8 @@
-package me.jimmyshaw.lexusfanapp.edmunds.util;
+package me.jimmyshaw.luxuryfanapp.edmunds.util;
 
 import java.util.Map;
 
-import me.jimmyshaw.lexusfanapp.edmunds.Models;
+import me.jimmyshaw.luxuryfanapp.edmunds.Models;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.QueryMap;

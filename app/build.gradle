@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "me.jimmyshaw.lexusfanapp"
+        applicationId "me.jimmyshaw.luxuryfanapp"
         minSdkVersion 19
         targetSdkVersion 23
         versionCode 1

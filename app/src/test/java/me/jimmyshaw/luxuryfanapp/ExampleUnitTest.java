@@ -1,4 +1,4 @@
-package me.jimmyshaw.lexusfanapp;
+package me.jimmyshaw.luxuryfanapp;
 
 import org.junit.Test;
 

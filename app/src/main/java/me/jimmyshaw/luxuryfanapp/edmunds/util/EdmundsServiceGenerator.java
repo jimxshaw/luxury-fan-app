@@ -1,4 +1,4 @@
-package me.jimmyshaw.lexusfanapp.edmunds.util;
+package me.jimmyshaw.luxuryfanapp.edmunds.util;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
