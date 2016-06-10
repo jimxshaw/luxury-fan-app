@@ -65,7 +65,7 @@ public class ModelFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Off load many of our static data retrieval methods to singleton class. 
+        // Off load many of our static data retrieval methods to singleton class.
         modelLab = ModelLab.getInstance();
 
         // Retrieve the category argument that's been set through the newInstance creation of
@@ -202,7 +202,7 @@ public class ModelFragment extends Fragment {
             // Use Picasso to resize the model image and load it into our image view.
             Picasso.with(getActivity())
                     .load(modelLab.bindImage(mModel.getName()))
-                    .placeholder(R.drawable.model_logo)
+                    .placeholder(android.R.color.white)
                     .into(mImage);
 
         }
