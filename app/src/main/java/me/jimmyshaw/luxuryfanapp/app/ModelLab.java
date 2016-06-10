@@ -1,6 +1,8 @@
 package me.jimmyshaw.luxuryfanapp.app;
 
 
+import android.content.SharedPreferences;
+
 import java.util.HashMap;
 import java.util.Map;
 

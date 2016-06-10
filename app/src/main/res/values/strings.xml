@@ -32,5 +32,5 @@
         F: Performance Flagship
     </string>
     <string name="car_price_info_title">MSRP</string>
-    <string name="car_price_info">Manufacturer\'s Suggested Retail Price for this specific model in US dollars</string>
+    <string name="car_price_info">Manufacturer\'s Suggested Retail Price in US dollars for ZIP Code</string>
 </resources>

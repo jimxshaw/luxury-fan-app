@@ -1,7 +1,9 @@
 package me.jimmyshaw.luxuryfanapp.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -49,6 +51,8 @@ public class ModelFragment extends Fragment {
 
     private Map<String, String> mModelsAndPrices;
 
+    private String mZipCode;
+
     // New instances of ModelFragment can only be created through this static newInstance
     // method, which takes a model category argument such as null, sedan, coupe etc. This way, our
     // list of models can be filtered by that particular category.
@@ -67,6 +71,9 @@ public class ModelFragment extends Fragment {
 
         // Off load many of our static data retrieval methods to singleton class.
         modelLab = ModelLab.getInstance();
+
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        mZipCode = sharedPreferences.getString(getString(R.string.zip_code), getString(R.string.zip_code_default));
 
         // Retrieve the category argument that's been set through the newInstance creation of
         // this fragment and assign it to a variable.
@@ -149,9 +156,9 @@ public class ModelFragment extends Fragment {
     }
 
 
-    private void showInfoDialog(int titleId, int bodyId) {
+    private void showInfoDialog(int titleId, int bodyId, String message) {
         String title = getResources().getString(titleId);
-        String body = getResources().getString(bodyId);
+        String body = getResources().getString(bodyId) + " " + message;
         AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(body);
@@ -179,7 +186,7 @@ public class ModelFragment extends Fragment {
             mName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showInfoDialog(R.string.car_name_info_title, R.string.lexus_car_name_info);
+                    showInfoDialog(R.string.car_name_info_title, R.string.lexus_car_name_info, "");
                 }
             });
             mPrice = (TextView) itemView.findViewById(R.id.card_view_price);
@@ -187,7 +194,7 @@ public class ModelFragment extends Fragment {
             mPrice.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showInfoDialog(R.string.car_price_info_title, R.string.car_price_info);
+                    showInfoDialog(R.string.car_price_info_title, R.string.car_price_info, mZipCode);
                 }
             });
             mImage = (ImageView) itemView.findViewById(R.id.card_view_image);
