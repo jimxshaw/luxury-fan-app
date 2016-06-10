@@ -52,8 +52,10 @@ public class ModelActivity extends AppCompatActivity
 //        });
 
         mSharedPreferences = ModelActivity.this.getPreferences(Context.MODE_PRIVATE);
-        
-        promptForZipcode();
+
+        if (mSharedPreferences.getString(getString(R.string.zip_code), getString(R.string.zip_code_default)).isEmpty()) {
+            promptForZipcode("");
+        }
 
         initialize();
 
@@ -85,11 +87,11 @@ public class ModelActivity extends AppCompatActivity
         mTabTitleList = new ArrayList<>();
     }
 
-    private void promptForZipcode() {
+    private void promptForZipcode(String message) {
 
         final AlertDialog.Builder inputDialogBuilder = new AlertDialog.Builder(this);
         inputDialogBuilder.setTitle("ZIP Code");
-        inputDialogBuilder.setMessage("Please enter your ZIP code");
+        inputDialogBuilder.setMessage("Please enter your ZIP code. " + message);
 
         final EditText userInput = new EditText(this);
         userInput.setHint(R.string.zip_code_default);
@@ -100,8 +102,14 @@ public class ModelActivity extends AppCompatActivity
                 String userInputValue = userInput.getText().toString();
                 SharedPreferences.Editor editor = mSharedPreferences.edit();
 
-                if (userInputValue.isEmpty() || userInputValue.length() != 5) {
+                if (userInputValue.isEmpty()) {
                     editor.putString(getString(R.string.zip_code), getResources().getString(R.string.zip_code_default));
+                }
+                else if (userInputValue.length() != 5) {
+                    promptForZipcode("It must be exactly 5 numbers.");
+                }
+                else if (!isStringInputAnInteger(userInputValue)) {
+                    promptForZipcode("Only numbers are allowed.");
                 }
                 else {
                     editor.putString(getString(R.string.zip_code), userInputValue);
@@ -134,6 +142,15 @@ public class ModelActivity extends AppCompatActivity
         mTabTitleList.add(tabTitle);
     }
 
+    private boolean isStringInputAnInteger(String input) {
+        try {
+            int num = Integer.parseInt(input);
+        }
+        catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
 
     @Override
     public void onBackPressed() {
