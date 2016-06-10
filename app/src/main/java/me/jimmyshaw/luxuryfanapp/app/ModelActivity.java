@@ -1,17 +1,22 @@
 package me.jimmyshaw.luxuryfanapp.app;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +31,8 @@ public class ModelActivity extends AppCompatActivity
     private Toolbar mToolbar;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
+
+    private SharedPreferences mSharedPreferences;
 
     private List<Fragment> mFragmentList;
     private List<String> mTabTitleList;
@@ -43,6 +50,10 @@ public class ModelActivity extends AppCompatActivity
 //                        .setAction("Action", null).show();
 //            }
 //        });
+
+        mSharedPreferences = ModelActivity.this.getPreferences(Context.MODE_PRIVATE);
+        
+        promptForZipcode();
 
         initialize();
 
@@ -72,6 +83,42 @@ public class ModelActivity extends AppCompatActivity
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mFragmentList = new ArrayList<>();
         mTabTitleList = new ArrayList<>();
+    }
+
+    private void promptForZipcode() {
+
+        final AlertDialog.Builder inputDialogBuilder = new AlertDialog.Builder(this);
+        inputDialogBuilder.setTitle("ZIP Code");
+        inputDialogBuilder.setMessage("Please enter your ZIP code");
+
+        final EditText userInput = new EditText(this);
+        userInput.setHint(R.string.zip_code_default);
+        inputDialogBuilder.setView(userInput);
+        inputDialogBuilder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String userInputValue = userInput.getText().toString();
+                SharedPreferences.Editor editor = mSharedPreferences.edit();
+
+                if (userInputValue.isEmpty() || userInputValue.length() != 5) {
+                    editor.putString(getString(R.string.zip_code), getResources().getString(R.string.zip_code_default));
+                }
+                else {
+                    editor.putString(getString(R.string.zip_code), userInputValue);
+                }
+
+                editor.apply();
+            }
+        });
+        inputDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog inputDialog = inputDialogBuilder.create();
+        inputDialog.show();
     }
 
     private void prepareDataResource() {
