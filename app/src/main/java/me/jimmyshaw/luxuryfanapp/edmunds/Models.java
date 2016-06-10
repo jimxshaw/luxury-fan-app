@@ -12,7 +12,7 @@ import javax.annotation.Generated;
 @Generated("org.jsonschema2pojo")
 public class Models {
 
-    @SerializedName("activity_model")
+    @SerializedName("models")
     @Expose
     private List<Model> models = new ArrayList<Model>();
     @SerializedName("modelsCount")
@@ -20,14 +20,14 @@ public class Models {
     private Integer modelsCount;
 
     /**
-     * @return The activity_model
+     * @return The models
      */
     public List<Model> getModels() {
         return models;
     }
 
     /**
-     * @param models The activity_model
+     * @param models The models
      */
     public void setModels(List<Model> models) {
         this.models = models;
