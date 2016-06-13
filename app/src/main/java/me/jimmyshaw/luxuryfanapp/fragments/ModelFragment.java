@@ -150,6 +150,7 @@ public class ModelFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getActivity(), "Added to favorites list!", Toast.LENGTH_LONG).show();
+                    Log.i("Zip Code: ", ModelLab.get(getActivity()).getZipCode());
                 }
             });
 
