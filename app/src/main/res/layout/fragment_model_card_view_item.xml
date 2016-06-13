@@ -30,23 +30,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/card_view_image"
+            android:layout_marginLeft="@dimen/fab_margin"
             android:text="@string/car_name"
             android:textAllCaps="false"
             android:textColor="@color/colorAccent"
             android:textSize="16sp"
             android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/card_view_price"
+        <ImageView
+            android:id="@+id/card_view_favorite_button"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/card_view_image"
-            android:text="@string/car_price"
-            android:textColor="@color/colorAccent"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:layout_marginRight="@dimen/fab_margin"
+            android:src="@drawable/ic_favorite_button"
+            android:tint="@color/button_gray"/>
 
     </RelativeLayout>
 

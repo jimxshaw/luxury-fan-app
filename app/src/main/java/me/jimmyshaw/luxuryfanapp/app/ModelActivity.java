@@ -54,7 +54,7 @@ public class ModelActivity extends AppCompatActivity
         mSharedPreferences = ModelActivity.this.getPreferences(Context.MODE_PRIVATE);
 
         if (mSharedPreferences.getString(getString(R.string.zip_code), getString(R.string.zip_code_default)).isEmpty()) {
-            promptForZipcode("");
+            promptForZipCode("");
         }
 
         initialize();
@@ -87,7 +87,7 @@ public class ModelActivity extends AppCompatActivity
         mTabTitleList = new ArrayList<>();
     }
 
-    private void promptForZipcode(String message) {
+    private void promptForZipCode(String message) {
 
         final AlertDialog.Builder inputDialogBuilder = new AlertDialog.Builder(this);
         inputDialogBuilder.setTitle("ZIP Code");
@@ -106,10 +106,10 @@ public class ModelActivity extends AppCompatActivity
                     editor.putString(getString(R.string.zip_code), getResources().getString(R.string.zip_code_default));
                 }
                 else if (userInputValue.length() != 5) {
-                    promptForZipcode("It must be exactly 5 numbers.");
+                    promptForZipCode("It must be exactly 5 numbers.");
                 }
                 else if (!isStringInputAnInteger(userInputValue)) {
-                    promptForZipcode("Only numbers are allowed.");
+                    promptForZipCode("Only numbers are allowed.");
                 }
                 else {
                     editor.putString(getString(R.string.zip_code), userInputValue);
