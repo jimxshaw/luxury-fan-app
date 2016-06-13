@@ -4,9 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -128,37 +125,11 @@ public class ModelFragment extends Fragment {
         mModelRecyclerView.setAdapter(mModelAdapter);
     }
 
-    // This method could used to scale down resources.
-    private Bitmap decodeResource(Resources res, int id) {
-        Bitmap bitmap = null;
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        /*
-            Regarding inSampleSize:
-            If set to a value > 1, requests the decoder to subsample the original image, returning
-            a smaller image to save memory. The sample size is the number of pixels in either
-            dimension that correspond to a single pixel in the decoded bitmap. For example,
-            inSampleSize == 4 returns an image that is 1/4 the width/height of the original,
-            and 1/16 the number of pixels.
-        */
-        for (options.inSampleSize = 1; options.inSampleSize <= 32; options.inSampleSize++) {
-            try {
-                bitmap = BitmapFactory.decodeResource(res, id, options);
-                Log.d("Inside decodeResource", "Decoded successfully for sampleSize " + options.inSampleSize);
-                break;
-            }
-            catch (OutOfMemoryError e) {
-                // If an OutOfMemoryError occurs, we continue with the for loop to the next
-                // inSampleSize value.
-                Log.e("Inside decodeResources", "OutOfMemoryError while reading file for sampleSize " + options.inSampleSize + " re-trying with higher value");
-            }
-        }
-        return bitmap;
-    }
-
-
-    private void showInfoDialog(int titleId, int bodyId, String message) {
-        String title = getResources().getString(titleId);
-        String body = getResources().getString(bodyId) + " " + message;
+    // Use this method to show an info dialog, such as showing how a particular make determines
+    // the naming convention for its models.
+    private void showInfoDialog(int resTitleId, int resBodyId, String message) {
+        String title = getResources().getString(resTitleId);
+        String body = getResources().getString(resBodyId) + " " + message;
         AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(body);
@@ -175,8 +146,8 @@ public class ModelFragment extends Fragment {
 
         private Model mModel;
         private TextView mName;
-        private TextView mPrice;
         private ImageView mImage;
+        private ImageView mFavoriteButton;
 
         public ModelHolder(View itemView) {
             super(itemView);
@@ -189,14 +160,15 @@ public class ModelFragment extends Fragment {
                     showInfoDialog(R.string.car_name_info_title, R.string.lexus_car_name_info, "");
                 }
             });
-            mPrice = (TextView) itemView.findViewById(R.id.card_view_price);
-            mPrice.setPaintFlags(mPrice.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-            mPrice.setOnClickListener(new View.OnClickListener() {
+
+            mFavoriteButton = (ImageView) itemView.findViewById(R.id.card_view_favorite_button);
+            mFavoriteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showInfoDialog(R.string.car_price_info_title, R.string.car_price_info, mZipCode);
+                    Toast.makeText(getActivity(), "Added to favorites list!", Toast.LENGTH_LONG).show();
                 }
             });
+
             mImage = (ImageView) itemView.findViewById(R.id.card_view_image);
             mImage.setOnClickListener(this);
         }
@@ -204,7 +176,6 @@ public class ModelFragment extends Fragment {
         public void bindModel(Model model) {
             mModel = model;
             mName.setText(mModel.getName());
-            mPrice.setText(mModelsAndPrices.get(mModel.getName()));
 
             // Use Picasso to resize the model image and load it into our image view.
             Picasso.with(getActivity())
