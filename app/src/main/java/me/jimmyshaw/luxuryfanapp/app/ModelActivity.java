@@ -51,11 +51,15 @@ public class ModelActivity extends AppCompatActivity
 //            }
 //        });
 
+        // Use shared preferences to get user's zip code and then set it in our ModelLab data singleton.
         mSharedPreferences = ModelActivity.this.getPreferences(Context.MODE_PRIVATE);
-
         if (mSharedPreferences.getString(getString(R.string.zip_code), getString(R.string.zip_code_default)).isEmpty()) {
             promptForZipCode("");
         }
+        String zipCode = mSharedPreferences.getString(getResources()
+                .getString(R.string.zip_code), getResources().getString(R.string.zip_code_default));
+
+        ModelLab.get(this).setZipCode(zipCode);
 
         initialize();
 

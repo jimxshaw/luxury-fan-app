@@ -1,9 +1,7 @@
 package me.jimmyshaw.luxuryfanapp.fragments;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,7 +19,6 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.Map;
 
 import me.jimmyshaw.luxuryfanapp.R;
 import me.jimmyshaw.luxuryfanapp.app.ModelLab;
@@ -37,7 +34,6 @@ public class ModelFragment extends Fragment {
 
     private static final String ARG_CATEGORY = "model_category";
 
-    private ModelLab modelLab;
 
     private String mCategory;
 
@@ -45,10 +41,6 @@ public class ModelFragment extends Fragment {
     private ModelAdapter mModelAdapter;
 
     private List<Model> mModels;
-
-    private Map<String, String> mModelsAndPrices;
-
-    private String mZipCode;
 
     // New instances of ModelFragment can only be created through this static newInstance
     // method, which takes a model category argument such as null, sedan, coupe etc. This way, our
@@ -66,18 +58,10 @@ public class ModelFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Off load many of our static data retrieval methods to singleton class.
-        modelLab = ModelLab.getInstance();
-
-        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        mZipCode = sharedPreferences.getString(getString(R.string.zip_code), getString(R.string.zip_code_default));
 
         // Retrieve the category argument that's been set through the newInstance creation of
         // this fragment and assign it to a variable.
         mCategory = getArguments().getString(ARG_CATEGORY);
-
-        // Instantiate our map of known models and prices to be used later in the ViewHolder.
-        mModelsAndPrices = modelLab.getModelsAndPricesMap();
 
         // Add a progress dialog spinner that will display during interactions with the server.
         final ProgressDialog progressDialog = new ProgressDialog(getActivity(), R.style.ProgressDialogTheme);
@@ -89,7 +73,7 @@ public class ModelFragment extends Fragment {
         EdmundsService service = EdmundsServiceGenerator.createService(EdmundsService.class);
 
         // Use a map of options to actually query the backend API server with a GET request.
-        Call<Models> call = service.getModels(modelLab.getModelsOptions(mCategory));
+        Call<Models> call = service.getModels(ModelLab.get(getActivity()).getModelsOptions(mCategory));
         call.enqueue(new Callback<Models>() {
             @Override
             public void onResponse(Call<Models> call, Response<Models> response) {
@@ -179,7 +163,7 @@ public class ModelFragment extends Fragment {
 
             // Use Picasso to resize the model image and load it into our image view.
             Picasso.with(getActivity())
-                    .load(modelLab.bindImage(mModel.getName()))
+                    .load(ModelLab.get(getActivity()).bindImage(mModel.getName()))
                     .placeholder(android.R.color.white)
                     .into(mImage);
 

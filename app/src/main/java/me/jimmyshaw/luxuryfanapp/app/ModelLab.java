@@ -1,6 +1,7 @@
 package me.jimmyshaw.luxuryfanapp.app;
 
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,24 +12,24 @@ import java.util.Map;
 
 import me.jimmyshaw.luxuryfanapp.R;
 
-/*
-    ModelLab is a Bill Pugh singleton pattern implementation. Before Java 5, certain singleton
-    implementations failed in some situations where too many threads try to get the singleton class
-    instance simultaneously. Bill's approach involves a private inner static class. When the singleton
-    class is loaded, the helper class is not loaded into memory. Only when getInstance is called does
-    the helper class get loaded and creates the singleton instance. This implementation is widely
-    used as it doesn't require synchronization.
-*/
+
 public class ModelLab {
+
+    private static ModelLab sModelLab;
 
     private final String API_KEY = "k5whpdvu4rf2h2gj3wuzaysg";
 
-    private ModelLab() {
+    private String zipCode;
+
+    private ModelLab(Context context) {
 
     }
 
-    public static ModelLab getInstance() {
-        return ModelLabHelper.INSTANCE;
+    public static ModelLab get(Context context) {
+        if (sModelLab == null) {
+            sModelLab = new ModelLab(context);
+        }
+        return sModelLab;
     }
 
     public String getApiKey() {
@@ -48,6 +49,14 @@ public class ModelLab {
             options.put("category", category);
         }
         return options;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String newZipCode) {
+        zipCode = newZipCode;
     }
 
     public Map<String, String> getModelsAndPricesMap() {
@@ -154,9 +163,5 @@ public class ModelLab {
             }
         }
         return bitmap;
-    }
-
-    public static class ModelLabHelper {
-        private static final ModelLab INSTANCE = new ModelLab();
     }
 }
