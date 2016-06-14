@@ -2,6 +2,7 @@ package me.jimmyshaw.luxuryfanapp.fragments;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,9 +22,12 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import me.jimmyshaw.luxuryfanapp.R;
+import me.jimmyshaw.luxuryfanapp.app.ModelDetailActivity;
 import me.jimmyshaw.luxuryfanapp.app.ModelLab;
 import me.jimmyshaw.luxuryfanapp.edmunds.Model;
 import me.jimmyshaw.luxuryfanapp.edmunds.Models;
+import me.jimmyshaw.luxuryfanapp.edmunds.Style;
+import me.jimmyshaw.luxuryfanapp.edmunds.Year;
 import me.jimmyshaw.luxuryfanapp.edmunds.util.EdmundsService;
 import me.jimmyshaw.luxuryfanapp.edmunds.util.EdmundsServiceGenerator;
 import retrofit2.Call;
@@ -133,6 +137,8 @@ public class ModelFragment extends Fragment {
         private ImageView mImage;
         private ImageView mFavoriteButton;
 
+        private String mStyleId;
+
         public ModelHolder(View itemView) {
             super(itemView);
             // Capture our widgets and make the text views be underlined.
@@ -170,11 +176,25 @@ public class ModelFragment extends Fragment {
 
         }
 
+        private String getStyleId() {
+            // Every model has a list of years, every year has a list of styles and every style has
+            // a styleId. The styleId is a crucial field that determines information such as MSRP,
+            // base price, incentives etc. 
+            Year year = mModel.getYears().get(0);
+            Style style = year.getStyles().get(0);
+            mStyleId = style.getId().toString();
+            Log.i("StyleId: ", mStyleId);
+
+            return mStyleId;
+        }
+
         @Override
         public void onClick(View v) {
             // This onClick method is bound to our model image.
-            Toast.makeText(getActivity(), "Activated model detail page!", Toast.LENGTH_SHORT).show();
+            Intent intent = ModelDetailActivity.newIntent(getActivity(), "Lexus", mModel.getName(), getStyleId());
+            startActivity(intent);
         }
+
     }
 
     public class ModelAdapter extends RecyclerView.Adapter<ModelHolder> {
