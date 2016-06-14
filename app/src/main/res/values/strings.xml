@@ -33,4 +33,6 @@
     </string>
     <string name="car_price_info_title">MSRP</string>
     <string name="car_price_info">Manufacturer\'s Suggested Retail Price in US dollars for ZIP Code</string>
+
+    <string name="model_detail_year">Year: </string>
 </resources>

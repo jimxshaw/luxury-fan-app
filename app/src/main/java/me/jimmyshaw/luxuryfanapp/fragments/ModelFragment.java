@@ -179,7 +179,7 @@ public class ModelFragment extends Fragment {
         private String getStyleId() {
             // Every model has a list of years, every year has a list of styles and every style has
             // a styleId. The styleId is a crucial field that determines information such as MSRP,
-            // base price, incentives etc. 
+            // base price, incentives etc.
             Year year = mModel.getYears().get(0);
             Style style = year.getStyles().get(0);
             mStyleId = style.getId().toString();
